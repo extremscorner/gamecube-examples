@@ -81,7 +81,7 @@ Initialise (void) {
  
 
 	/*** Define a console ***/
-	console_init (xfb[0], 20, 64, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * 2);
+	console_init (xfb[0], 0, 0, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * 2);
  
 	/*** Clear framebuffer to black ***/
 	VIDEO_ClearFrameBuffer (vmode, xfb[0], COLOR_BLACK);

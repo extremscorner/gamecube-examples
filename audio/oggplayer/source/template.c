@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
 	
 	// Initialise the console, required for printf
-	console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
+	console_init(xfb,0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
 	
 	// Set up the video registers with the chosen mode
 	VIDEO_Configure(rmode);

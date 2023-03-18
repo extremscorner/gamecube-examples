@@ -44,7 +44,7 @@ int main() {
 	VIDEO_Flush();
 	VIDEO_WaitVSync();
 	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
-	console_init(xfb,20,64,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*2);
+	console_init(xfb,0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*2);
 	VIDEO_SetNextFramebuffer(xfb);
 
 	printf("Memory Card Demo\n\n");

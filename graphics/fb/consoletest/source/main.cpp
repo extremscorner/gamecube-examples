@@ -43,7 +43,7 @@ int main() {
 	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
 	
 	
-	console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*2);
+	console_init(xfb,0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*2);
 
 
 	time_t gc_time;
