@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 	VIDEO_SetNextFramebuffer(xfb);
 
 	// Make the display visible
-	VIDEO_SetBlack(FALSE);
+	VIDEO_SetBlack(false);
 
 	// Flush the video register changes to the hardware
 	VIDEO_Flush();
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
 	printf("\x1b[2;0H");
 
 	if(fatInitDefault()) {
-		dirlist("/");
+		dirlist(".");
 	} else {
 		printf("fatInitDefault() failure.\n");
 	}
