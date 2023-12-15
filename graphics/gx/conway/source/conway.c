@@ -32,8 +32,8 @@
 #include <ogc/video.h>
 #include <stdlib.h>
 
-static void *xfb;
 static GXRModeObj rmode;
+static void *xfb;
 
 static void *fifo;
 
@@ -137,8 +137,8 @@ static void init_conway(void)
 
 	GX_SetTevOrder(GX_TEVSTAGE8, GX_TEXCOORDNULL, GX_TEXMAP_NULL, GX_COLORNULL);
 	GX_SetTevKColorSel(GX_TEVSTAGE8, GX_TEV_KCSEL_3_8);
-	GX_SetTevColorIn(GX_TEVSTAGE8, GX_CC_APREV, GX_CC_KONST, GX_CC_ONE, GX_CC_ZERO);
-	GX_SetTevColorOp(GX_TEVSTAGE8, GX_TEV_COMP_RGB8_EQ, GX_TB_ZERO, GX_CS_SCALE_1, GX_TRUE, GX_TEVPREV);
+	GX_SetTevColorIn(GX_TEVSTAGE8, GX_CC_CPREV, GX_CC_KONST, GX_CC_ONE, GX_CC_ZERO);
+	GX_SetTevColorOp(GX_TEVSTAGE8, GX_TEV_COMP_R8_EQ, GX_TB_ZERO, GX_CS_SCALE_1, GX_TRUE, GX_TEVPREV);
 	GX_SetTevAlphaIn(GX_TEVSTAGE8, GX_CA_ZERO, GX_CA_ZERO, GX_CA_ZERO, GX_CA_APREV);
 	GX_SetTevAlphaOp(GX_TEVSTAGE8, GX_TEV_ADD, GX_TB_ZERO, GX_CS_SCALE_1, GX_TRUE, GX_TEVPREV);
 	GX_SetTevDirect(GX_TEVSTAGE8);
@@ -152,6 +152,7 @@ static void init_conway(void)
 	GX_SetViewport(1./24., 1./24., 1024., 1024., 0., 1.);
 
 	GX_LoadTexObj(&texobj, GX_TEXMAP0);
+
 	GX_SetTexCopySrc(0, 0, rmode.fbWidth, rmode.efbHeight);
 	GX_SetTexCopyDst(rmode.fbWidth, rmode.efbHeight, GX_CTF_R4, GX_FALSE);
 }
