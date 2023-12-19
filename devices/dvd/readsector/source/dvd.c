@@ -96,7 +96,7 @@ int main () {
 	printf ("OK\n");
  
 	// Read Sector 0
-	ret = DVD_ReadPrio (&cmdblk, dvdbuffer, 2048, 0, 2);
+	ret = DVD_ReadAbs (&cmdblk, dvdbuffer, 2048, 0);
 
 	if (ret <= 0) {
 		printf ("Error during read sector 0\n");
