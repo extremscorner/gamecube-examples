@@ -149,7 +149,7 @@ int main(int argc,char **argv)
 
 		if(first_frame) {
 			first_frame = 0;
-			VIDEO_SetBlack(FALSE);
+			VIDEO_SetBlack(false);
 		}
 
 		// draw things

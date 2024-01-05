@@ -83,7 +83,7 @@ int main( int argc, char **argv ){
 
 	VIDEO_Configure(rmode);
 	VIDEO_SetNextFramebuffer(xfb[curr_fb]);
-	if(!first_frame) VIDEO_SetBlack(FALSE);
+	if(!first_frame) VIDEO_SetBlack(false);
 	VIDEO_Flush();
 	VIDEO_WaitVSync();
 	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
@@ -160,7 +160,7 @@ int main( int argc, char **argv ){
  
 		if(first_frame) {
 			first_frame = 0;
-			VIDEO_SetBlack(FALSE);
+			VIDEO_SetBlack(false);
 		}	
 		VIDEO_Flush();
  

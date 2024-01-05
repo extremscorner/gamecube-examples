@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 	printf("Configuring network ...\n");
 
 	// Configure the network interface
-	ret = if_config ( localip, netmask, gateway, TRUE);
+	ret = if_config ( localip, netmask, gateway, true);
 	if (ret>=0) {
 		printf ("network configured, ip: %s, gw: %s, mask %s\n", localip, gateway, netmask);
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
 							httpd,			/* code */ 
 							localip,		/* arg pointer for thread */
 							NULL,			/* stack base */ 
-							16*1024,		/* stack size */
+							64*1024,		/* stack size */
 							50				/* thread priority */ );
 	} else {
 		printf ("network configuration failed!\n");
@@ -158,7 +158,7 @@ void *initialise() {
 	
 	VIDEO_Configure(rmode);
 	VIDEO_SetNextFramebuffer(framebuffer);
-	VIDEO_SetBlack(FALSE);
+	VIDEO_SetBlack(false);
 	VIDEO_Flush();
 	VIDEO_WaitVSync();
 	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
