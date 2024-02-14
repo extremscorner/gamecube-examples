@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -19,14 +20,15 @@ static GXRModeObj *rmode = NULL;
 void dirlist(char* path) {
 
 	DIR* pdir = opendir(path);
+	struct dirent* pent;
 
 	if (pdir != NULL) {
 
-		while(true) {
-			struct dirent* pent = readdir(pdir);
-			if(pent == NULL) break;
+		do {
+			errno = 0;
+			pent = readdir(pdir);
 
-			if(strcmp(".", pent->d_name) != 0 && strcmp("..", pent->d_name) != 0) {
+			if(pent != NULL && strcmp(".", pent->d_name) != 0 && strcmp("..", pent->d_name) != 0) {
 				char dnbuf[PATH_MAX];
 				sprintf(dnbuf, "%s/%s", path, pent->d_name);
 
@@ -37,10 +39,10 @@ void dirlist(char* path) {
 					printf("%s <DIR>\n", dnbuf);
 					dirlist(dnbuf);
 				} else {
-					printf("%s (%d)\n", dnbuf, (int)statbuf.st_size);
+					printf("%s (%lld)\n", dnbuf, statbuf.st_size);
 				}
 			}
-		}
+		} while (pent != NULL || errno == EOVERFLOW);
 
 		closedir(pdir);
 	} else {
