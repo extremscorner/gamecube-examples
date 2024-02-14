@@ -50,8 +50,7 @@ int main() {
 		}
 
 		if (buttons & PAD_BUTTON_START) {
-			void (*reload)() = (void(*)())0x80001800;
-			reload();
+			exit(0);
 		}
 	}
 

@@ -14,7 +14,6 @@ static u8 SysArea[CARD_WORKAREA] ATTRIBUTE_ALIGN(32);
 
 u32 first_frame = 1;
 GXRModeObj *rmode;
-void (*PSOreload)() = (void(*)())0x80001800;
 
 
 /*---------------------------------------------------------------------------------
@@ -30,15 +29,15 @@ void card_removed(s32 chn,s32 result) {
 int main() {
 //---------------------------------------------------------------------------------
 	VIDEO_Init();
-	
+
 	rmode = VIDEO_GetPreferredMode(NULL);
 
 	PAD_Init();
-	
+
 	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-		
+
 	VIDEO_Configure(rmode);
-		
+
 	VIDEO_SetNextFramebuffer(xfb);
 	VIDEO_SetBlack(false);
 	VIDEO_Flush();
@@ -54,7 +53,7 @@ int main() {
 
 		do {
 			PAD_ScanPads();
-			if (PAD_ButtonsDown(0) & PAD_BUTTON_START) PSOreload();
+			if (PAD_ButtonsDown(0) & PAD_BUTTON_START) exit(0);
 			VIDEO_WaitVSync();
 		} while ( !(PAD_ButtonsDown(0) & PAD_BUTTON_A));
 
@@ -63,11 +62,11 @@ int main() {
 
 		CARD_Init("DEMO","00");
 		int SlotB_error = CARD_Mount(CARD_SLOTB, SysArea, card_removed);
-	
+
 		printf("slot B code %d\n",SlotB_error);
 
 		int CardError;
-		
+
 		if (SlotB_error >= 0) {
 
 			unsigned int SectorSize = 0;
@@ -76,16 +75,16 @@ int main() {
 			printf("Sector size is %d bytes.\n\n",SectorSize);
 
 			char *CardBuffer = (char *)memalign(32,SectorSize);
-			
+
 			printf("Starting directory\n");
 
 			card_dir CardDir;
 			card_file CardFile;
-			
+
 			CardError = CARD_FindFirst(CARD_SLOTB, &CardDir, true);
 
 			bool found = false;
-			
+
 			while ( CARD_ERROR_NOFILE != CardError ) {
 				printf("%s  %s  %s\n",CardDir.filename,CardDir.gamecode,CardDir.company);
 				CardError = CARD_FindNext(&CardDir);
@@ -93,18 +92,18 @@ int main() {
 			};
 
 			printf("Finished directory\n\n");
-			
+
 			if (found) {
 				printf("Test file contains :- \n");
 				CardError = CARD_Open(CARD_SLOTB ,DemoFileName,&CardFile);
 				CARD_Read(&CardFile,CardBuffer,SectorSize,0);
 				printf("%s\n",CardBuffer);
-				
+
 				CARD_Close(&CardFile);
-			
+
 				CARD_Delete(CARD_SLOTB,DemoFileName);
 			} else {
-			
+
 				printf("writing test file ...\n");
 				CardError = CARD_Create(CARD_SLOTB ,DemoFileName,SectorSize,&CardFile);
 
@@ -121,7 +120,7 @@ int main() {
 
 			CARD_Unmount(CARD_SLOTB);
 			free(CardBuffer);
-			
+
 		}
 	}
 

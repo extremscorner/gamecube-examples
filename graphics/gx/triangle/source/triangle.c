@@ -94,8 +94,7 @@ int	main(void)
 		update_screen(view);
 		PAD_Read(pads);
 		if (pads[0].button & PAD_BUTTON_START) {
-			void (*reload)() = (void(*)())0x80001800;
-			reload();
+			exit(0);
 		}
 	}
 	return 0;
