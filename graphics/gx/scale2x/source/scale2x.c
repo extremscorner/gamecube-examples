@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2015-2023, Extrems <extrems@extremscorner.org>
+ * Copyright (c) 2015-2024, Extrems <extrems@extremscorner.org>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -147,8 +147,6 @@ static void init_scale2x(void)
 
 	TPL_OpenTPLFromMemory(&tdf, (void *)textures_tpl, textures_tpl_size);
 	TPL_GetTexture(&tdf, test, &texobj);
-	GX_InitTexObjFilterMode(&texobj, GX_NEAR, GX_NEAR);
-	GX_InitTexObjWrapMode(&texobj, GX_CLAMP, GX_CLAMP);
 
 	GX_InitTexObj(&indtexobj, indtexdata[0], 2, 2, GX_TF_IA8, GX_REPEAT, GX_REPEAT, GX_FALSE);
 	GX_InitTexObjFilterMode(&indtexobj, GX_NEAR, GX_NEAR);
