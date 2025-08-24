@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2023, Extrems <extrems@extremscorner.org>
+ * Copyright (c) 2023-2025, Extrems <extrems@extremscorner.org>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -25,10 +25,11 @@
  */
 
 #include <malloc.h>
+#include <ogc/color.h>
 #include <ogc/gx.h>
-#include <ogc/lwp_watchdog.h>
 #include <ogc/pad.h>
 #include <ogc/system.h>
+#include <ogc/timesupp.h>
 #include <ogc/video.h>
 #include <stdlib.h>
 
@@ -49,6 +50,7 @@ static void init_video(void)
 	VIDEO_Configure(&rmode);
 
 	xfb = SYS_AllocateFramebuffer(&rmode);
+	VIDEO_ClearFrameBuffer(&rmode, xfb, COLOR_BLACK);
 	VIDEO_SetNextFramebuffer(xfb);
 
 	VIDEO_SetBlack(false);
@@ -149,7 +151,7 @@ static void init_conway(void)
 
 	GX_LoadProjectionMtx(projection, GX_ORTHOGRAPHIC);
 	GX_SetCurrentMtx(GX_PNMTX0);
-	GX_SetViewport(1./24., 1./24., 1024., 1024., 0., 1.);
+	GX_SetViewport(0., 0., 1024., 1024., 0., 1.);
 
 	GX_LoadTexObj(&texobj, GX_TEXMAP0);
 
