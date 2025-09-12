@@ -61,6 +61,7 @@ int main() {
 		printf("Mounting card ...\n");
 
 		CARD_Init("DEMO","00");
+		while ( CARD_ERROR_BUSY == CARD_ProbeEx(CARD_SLOTB, NULL, NULL));
 		int SlotB_error = CARD_Mount(CARD_SLOTB, SysArea, card_removed);
 
 		printf("slot B code %d\n",SlotB_error);
