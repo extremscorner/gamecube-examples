@@ -103,7 +103,7 @@ static void init_graphics(void)
 	fifo = memalign(32, GX_FIFO_MINSIZE);
 	GX_Init(fifo, GX_FIFO_MINSIZE);
 
-	for (int i = GX_TEXCOORD0; i < GX_MAXCOORD; i++)
+	for (int i = GX_TEXCOORD0; i < GX_MAX_TEXCOORD; i++)
 		GX_SetTexCoordScaleManually(i, GX_TRUE, 1, 1);
 
 	for (int i = 0; i < 10; i++) {
