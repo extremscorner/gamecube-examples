@@ -96,10 +96,7 @@ Initialise (void) {
 	/*** Update the video for next vblank ***/
 	VIDEO_Flush ();
 
-	VIDEO_WaitVSync ();        /*** Wait for VBL ***/
-
-	if (vmode->viTVMode & VI_NON_INTERLACE)
-		VIDEO_WaitVSync ();
+	VIDEO_WaitForFlush ();        /*** Wait for VBL ***/
  
 }
 
@@ -205,7 +202,7 @@ int main () {
 		/*** Set this as next frame to display ***/
 		VIDEO_SetNextFramebuffer (xfb[whichfb]);
 		VIDEO_Flush ();
-		VIDEO_WaitVSync ();
+		VIDEO_WaitForFlush ();
  
 		/*** Move the checkerboard along ***/
 		pos += 353;

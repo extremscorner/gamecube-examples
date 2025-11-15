@@ -71,10 +71,7 @@ static void Initialise () {
 	// Update the video for next vblank 
 	VIDEO_Flush ();
   
-	VIDEO_WaitVSync ();        // Wait for next Vertical Blank
-
-	if (vmode->viTVMode & VI_NON_INTERLACE)
-		VIDEO_WaitVSync ();
+	VIDEO_WaitForFlush ();        // Wait for next Vertical Blank
  
 }
  

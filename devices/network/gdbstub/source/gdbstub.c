@@ -42,8 +42,7 @@ int main() {
 	VIDEO_SetNextFramebuffer(xfb);
 	VIDEO_SetBlack(false);
 	VIDEO_Flush();
-	VIDEO_WaitVSync();
-	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
+	VIDEO_WaitForFlush();
 
 	/* Configure for use with TCP on default port ( 2828 ) */
 	DEBUG_Init(GDBSTUB_DEVICE_TCP,GDBSTUB_DEF_TCPPORT);

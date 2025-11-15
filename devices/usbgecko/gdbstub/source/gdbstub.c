@@ -23,8 +23,7 @@ int main() {
 	VIDEO_SetNextFramebuffer(xfb);
 	VIDEO_SetBlack(false);
 	VIDEO_Flush();
-	VIDEO_WaitVSync();
-	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
+	VIDEO_WaitForFlush();
 
 	/* Configure for use with USB on EXI channel 1 (memcard slot B) */
 	/* Other option: GDBSTUB_DEVICE_TCP. Note: second parameter acts as port for this type of device */

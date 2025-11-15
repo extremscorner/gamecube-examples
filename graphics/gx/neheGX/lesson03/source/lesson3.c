@@ -46,8 +46,7 @@ int main( int argc, char **argv ){
 	VIDEO_SetNextFramebuffer(frameBuffer[fb]);
 	VIDEO_SetBlack(false);
 	VIDEO_Flush();
-	VIDEO_WaitVSync();
-	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
+	VIDEO_WaitForFlush();
 
 	// setup the fifo and then init the flipper
 	void *gp_fifo = NULL;
@@ -164,7 +163,7 @@ int main( int argc, char **argv ){
  
 		VIDEO_Flush();
  
-		VIDEO_WaitVSync();
+		VIDEO_WaitForFlush();
 
 
 	}

@@ -74,8 +74,7 @@ int main() {
 	VIDEO_SetPostRetraceCallback(copy_to_xfb);
 	VIDEO_SetBlack(false);
 	VIDEO_Flush();
-	VIDEO_WaitVSync();
-	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
+	VIDEO_WaitForFlush();
 
 	void *gp_fifo = NULL;
 	gp_fifo = MEM_K0_TO_K1(memalign(32,DEFAULT_FIFO_SIZE));

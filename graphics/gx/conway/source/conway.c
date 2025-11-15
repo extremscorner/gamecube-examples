@@ -55,8 +55,7 @@ static void init_video(void)
 
 	VIDEO_SetBlack(false);
 	VIDEO_Flush();
-	VIDEO_WaitVSync();
-	VIDEO_WaitVSync();
+	VIDEO_WaitForFlush();
 }
 
 static void init_graphics(void)
