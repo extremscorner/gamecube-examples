@@ -39,7 +39,7 @@ int	main(void)
 	screenMode = VIDEO_GetPreferredMode(NULL);
 
 	PAD_Init();
-	frameBuffer	= MEM_K0_TO_K1(SYS_AllocateFramebuffer(screenMode));
+	frameBuffer	= SYS_AllocateFramebuffer(screenMode);
 
 	VIDEO_Configure(screenMode);
 	VIDEO_SetNextFramebuffer(frameBuffer);
@@ -52,7 +52,7 @@ int	main(void)
 	memset(fifoBuffer,	0, FIFO_SIZE);
 
 	GX_Init(fifoBuffer, FIFO_SIZE);
-	GX_SetCopyClear(backgroundColor, 0x00ffffff);
+	GX_SetCopyClear(backgroundColor, GX_MAX_Z24);
 	GX_SetViewport(0,0,screenMode->fbWidth,screenMode->efbHeight,0,1);
 	GX_SetDispCopyYScale((f32)screenMode->xfbHeight/(f32)screenMode->efbHeight);
 	GX_SetScissor(0,0,screenMode->fbWidth,screenMode->efbHeight);

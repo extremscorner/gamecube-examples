@@ -59,8 +59,8 @@ int main( int argc, char **argv ){
 	fb = 0;
 	first_frame = 1;
 	// allocate 2 framebuffers for double buffering
-	frameBuffer[0] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-	frameBuffer[1] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	frameBuffer[0] = SYS_AllocateFramebuffer(rmode);
+	frameBuffer[1] = SYS_AllocateFramebuffer(rmode);
 
 	VIDEO_Configure(rmode);
 	VIDEO_SetNextFramebuffer(frameBuffer[fb]);
@@ -77,7 +77,7 @@ int main( int argc, char **argv ){
 	GX_Init(gp_fifo,DEFAULT_FIFO_SIZE);
  
 	// clears the bg to color and clears the z buffer
-	GX_SetCopyClear(background, 0x00ffffff);
+	GX_SetCopyClear(background, GX_MAX_Z24);
  
 	// other gx setup
 	GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);

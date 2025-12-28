@@ -34,7 +34,7 @@ int main() {
 
 	PAD_Init();
 
-	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	xfb = SYS_AllocateFramebuffer(rmode);
 
 	VIDEO_Configure(rmode);
 
@@ -42,7 +42,7 @@ int main() {
 	VIDEO_SetBlack(false);
 	VIDEO_Flush();
 	VIDEO_WaitForFlush();
-	console_init(xfb,0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*2);
+	CON_Init(xfb,0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
 	VIDEO_SetNextFramebuffer(xfb);
 
 	printf("Memory Card Demo\n\n");

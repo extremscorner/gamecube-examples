@@ -72,16 +72,16 @@ Initialise (void) {
 		to hold the display line by line.
 	***/
  
-	xfb[0] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (vmode));
+	xfb[0] = (u32 *) SYS_AllocateFramebuffer (vmode);
 
 	/*** I prefer also to have a second buffer for double-buffering.
 		This is not needed for the console demo.
 	***/
-	xfb[1] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (vmode));
+	xfb[1] = (u32 *) SYS_AllocateFramebuffer (vmode);
  
 
 	/*** Define a console ***/
-	console_init (xfb[0], 0, 0, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * 2);
+	CON_Init (xfb[0], 0, 0, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * VI_DISPLAY_PIX_SZ);
  
 	/*** Clear framebuffer to black ***/
 	VIDEO_ClearFrameBuffer (vmode, xfb[0], COLOR_BLACK);
@@ -91,7 +91,7 @@ Initialise (void) {
 	VIDEO_SetNextFramebuffer (xfb[0]);
  
 	/*** Get the PAD status updated by libogc ***/
-	VIDEO_SetBlack (0);
+	VIDEO_SetBlack (false);
  
 	/*** Update the video for next vblank ***/
 	VIDEO_Flush ();

@@ -80,7 +80,7 @@ int main(int argc,char **argv)
 	GX_Init(gpfifo,DEFAULT_FIFO_SIZE);
  
 	// clears the bg to color and clears the z buffer
-	GX_SetCopyClear(background, 0x00ffffff);
+	GX_SetCopyClear(background, GX_MAX_Z24);
  
 	// other gx setup
 	GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);

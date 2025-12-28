@@ -78,22 +78,22 @@ int main( int argc, char **argv ){
 	gp_fifo = memalign(32,DEFAULT_FIFO_SIZE);
 	memset(gp_fifo,0,DEFAULT_FIFO_SIZE);
  
-	xfb[0] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-	xfb[1] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	xfb[0] = SYS_AllocateFramebuffer(rmode);
+	xfb[1] = SYS_AllocateFramebuffer(rmode);
 
 	VIDEO_Configure(rmode);
 	VIDEO_SetNextFramebuffer(xfb[curr_fb]);
 	if(!first_frame) VIDEO_SetBlack(false);
 	VIDEO_Flush();
 	VIDEO_WaitForFlush();
-	console_init(xfb[curr_fb],0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
+	CON_Init(xfb[curr_fb],0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
  
 	//curr_fb ^= 1;
  
 	GX_Init(gp_fifo,DEFAULT_FIFO_SIZE);
  
 	// clears the bg to color and clears the z buffer
-	GX_SetCopyClear(background, 0x00ffffff);
+	GX_SetCopyClear(background, GX_MAX_Z24);
  
 	// other gx setup
 	GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);

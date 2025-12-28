@@ -67,7 +67,7 @@ int main() {
 	rmode = VIDEO_GetPreferredMode(NULL);
 
 	PAD_Init();
-	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	xfb = SYS_AllocateFramebuffer(rmode);
 
 	VIDEO_Configure(rmode);
 	VIDEO_SetNextFramebuffer(xfb);
@@ -82,7 +82,7 @@ int main() {
 
 	GX_Init(gp_fifo,DEFAULT_FIFO_SIZE);
 
-	GX_SetCopyClear(background, 0x00ffffff);
+	GX_SetCopyClear(background, GX_MAX_Z24);
 
 	GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);
 	GX_SetDispCopyYScale((f32)rmode->xfbHeight/(f32)rmode->efbHeight);

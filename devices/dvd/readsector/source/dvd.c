@@ -53,11 +53,11 @@ static void Initialise () {
 	
 	*/
 
-	xfb = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (vmode));
+	xfb = (u32 *) SYS_AllocateFramebuffer (vmode);
 
 
 	// Define a console
-	console_init (xfb, 0, 0, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * 2);
+	CON_Init (xfb, 0, 0, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * VI_DISPLAY_PIX_SZ);
  
     // Clear framebuffer to black
 	VIDEO_ClearFrameBuffer (vmode, xfb, COLOR_BLACK);
@@ -66,7 +66,7 @@ static void Initialise () {
 	/*** Set the framebuffer to be displayed at next VBlank ***/
 	VIDEO_SetNextFramebuffer (xfb);
  
-	VIDEO_SetBlack (0);
+	VIDEO_SetBlack (false);
  
 	// Update the video for next vblank 
 	VIDEO_Flush ();

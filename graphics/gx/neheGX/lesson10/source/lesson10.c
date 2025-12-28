@@ -102,8 +102,8 @@ int main( int argc, char **argv ){
 	PAD_Init();
 	
 	// allocate 2 framebuffers for double buffering
-	frameBuffer[0] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-	frameBuffer[1] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	frameBuffer[0] = SYS_AllocateFramebuffer(rmode);
+	frameBuffer[1] = SYS_AllocateFramebuffer(rmode);
 
 	// configure video and wait for the screen to blank
 	VIDEO_Configure(rmode);
@@ -121,7 +121,7 @@ int main( int argc, char **argv ){
 	GX_Init(gp_fifo,DEFAULT_FIFO_SIZE);
  
 	// clears the bg to color and clears the z buffer
-	GX_SetCopyClear(background, 0x00ffffff);
+	GX_SetCopyClear(background, GX_MAX_Z24);
  
 	// other gx setup
 	GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);

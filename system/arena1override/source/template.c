@@ -60,8 +60,8 @@ void * Initialise() {
 	
 	rmode = VIDEO_GetPreferredMode(NULL);
 
-	framebuffer = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-	console_init(framebuffer,0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
+	framebuffer = SYS_AllocateFramebuffer(rmode);
+	CON_Init(framebuffer,0,0,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
 	
 	VIDEO_Configure(rmode);
 	VIDEO_SetNextFramebuffer(framebuffer);
