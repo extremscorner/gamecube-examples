@@ -14,7 +14,7 @@ static GXRModeObj *rmode = NULL;
 void *initialise();
 void *httpd (void *arg);
 
-static	lwp_t httd_handle = (lwp_t)NULL;
+static lwp_t httpd_handle = LWP_THREAD_NULL;
 
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 	
 	xfb = initialise();
 
-	printf ("\nlibogc network demo\n");
+	printf ("\nlibogc2 network demo\n");
 	printf("Configuring network ...\n");
 
 	// Configure the network interface
@@ -35,12 +35,12 @@ int main(int argc, char **argv) {
 	if (ret>=0) {
 		printf ("network configured, ip: %s, gw: %s, mask %s\n", localip, gateway, netmask);
 
-		LWP_CreateThread(	&httd_handle,	/* thread handle */ 
+		LWP_CreateThread(	&httpd_handle,	/* thread handle */ 
 							httpd,			/* code */ 
 							localip,		/* arg pointer for thread */
 							NULL,			/* stack base */ 
 							64*1024,		/* stack size */
-							50				/* thread priority */ );
+							LWP_PRIO_NORMAL	/* thread priority */ );
 	} else {
 		printf ("network configuration failed!\n");
 	}
