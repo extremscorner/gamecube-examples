@@ -167,7 +167,7 @@ int main(int argc,char **argv)
 		exit(1);        // Exit if failed.
 	}
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 

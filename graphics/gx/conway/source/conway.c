@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2023-2025, Extrems <extrems@extremscorner.org>
+ * Copyright (c) 2023-2026, Extrems <extrems@extremscorner.org>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -190,7 +190,7 @@ int main(int argc, char **argv)
 	init_conway();
 	randomize();
 
-	while (true) {
+	while (SYS_MainLoop()) {
 		draw_conway();
 
 		VIDEO_WaitVSync();

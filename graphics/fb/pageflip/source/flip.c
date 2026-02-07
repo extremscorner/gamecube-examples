@@ -150,7 +150,7 @@ int main () {
 	colour1 = CvtRGB (0xff, 0xff, 0xff, 0xff, 0xff, 0xff);
 	startx = starty = directionx = directiony = 0;
  
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		/*** Flip to off screen xfb ***/
 		whichfb ^= 1;

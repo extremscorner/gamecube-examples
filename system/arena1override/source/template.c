@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 	void *test = malloc(1024);
 	printf("malloc returned %p\n", test);
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		VIDEO_WaitVSync();
 		PAD_ScanPads();

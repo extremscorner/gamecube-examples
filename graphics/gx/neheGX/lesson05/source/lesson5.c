@@ -114,7 +114,7 @@ int main( int argc, char **argv ){
 	guVector triAxis = {0,1,0};
 	guVector cubeAxis = {1,1,1};
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 

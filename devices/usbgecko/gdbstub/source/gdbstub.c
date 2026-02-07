@@ -37,7 +37,7 @@ int main() {
 
 	printf("debugger connected ...\n");
      
-	while(1)
+	while (SYS_MainLoop())
 	{
 		VIDEO_WaitVSync();
 		PAD_ScanPads();

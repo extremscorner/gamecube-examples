@@ -213,7 +213,7 @@ int main( int argc, char **argv ){
 		particle_array[i].zg = 0.0f;
 	}
  
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 

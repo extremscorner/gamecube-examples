@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 
 	printf("\nHello World!\n");
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		VIDEO_WaitVSync();
 		PAD_ScanPads();

@@ -173,7 +173,7 @@ int main(int argc,char **argv)
 
 	guVector cubeAxis = {1,1,1};
 
-	while(1) {
+	while (SYS_MainLoop()) {
 /*		WPAD_ReadPending(WPAD_CHAN_0,NULL);
 		wpad = WPAD_Data(WPAD_CHAN_0);
 		if(wpad->btns_d&WPAD_BUTTON_HOME) exit(0);

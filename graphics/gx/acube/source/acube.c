@@ -131,7 +131,7 @@ int main( int argc, char **argv ){
 	draw_init();
  
 	// main loop
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 

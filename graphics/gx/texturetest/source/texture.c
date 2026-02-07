@@ -107,7 +107,7 @@ int main() {
 
 	draw_init();
 
-	while(1)
+	while (SYS_MainLoop())
 	{
 		guLookAt(v, &cam.pos, &cam.up, &cam.view);
 

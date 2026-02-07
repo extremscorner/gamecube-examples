@@ -151,7 +151,7 @@ int main( int argc, char **argv ){
 	GX_SetAlphaUpdate(GX_TRUE);
 	GX_SetColorUpdate(GX_TRUE);
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 

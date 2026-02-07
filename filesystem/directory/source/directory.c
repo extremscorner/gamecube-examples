@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 		printf("fatInitDefault() failure.\n");
 	}
 
-	while(1) {
+	while (SYS_MainLoop()) {
 		// Call WPAD_ScanPads each loop, this reads the latest controller states
 		PAD_ScanPads();
 

@@ -54,7 +54,7 @@ int main() {
 	std::cout << "Hello World" << std::endl;
 	printf("random number is %08x\n",rand());
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		gc_time = time(NULL);
 		printf("\x1b[10;0HRTC time is %s     ",ctime(&gc_time));

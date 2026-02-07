@@ -136,7 +136,7 @@ int main(int argc,char **argv)
 
 	guVector cubeAxis = {1,1,1};
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 		if(PAD_ButtonsDown(0) & PAD_BUTTON_START) exit(0);

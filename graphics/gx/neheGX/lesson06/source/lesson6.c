@@ -130,7 +130,7 @@ int main(int argc,char **argv)
 
 	guVector cubeAxis = {1,1,1};
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 

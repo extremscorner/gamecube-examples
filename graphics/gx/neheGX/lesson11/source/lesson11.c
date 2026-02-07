@@ -138,7 +138,7 @@ int main(int argc,char **argv)
 		}
 	}
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		PAD_ScanPads();
 

@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
 
 
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		VIDEO_WaitVSync();
 		PAD_ScanPads();

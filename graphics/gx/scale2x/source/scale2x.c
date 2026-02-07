@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) 2015-2025, Extrems <extrems@extremscorner.org>
+ * Copyright (c) 2015-2026, Extrems <extrems@extremscorner.org>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -265,7 +265,7 @@ int main(int argc, char **argv)
 	init_graphics();
 	init_scale2x();
 
-	while (true) {
+	while (SYS_MainLoop()) {
 		draw_scale2x();
 
 		VIDEO_WaitVSync();

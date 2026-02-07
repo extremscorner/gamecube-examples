@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
 
 	MP3Player_PlayBuffer(sample_mp3, sample_mp3_size, NULL);
 
-	while(1) {
+	while (SYS_MainLoop()) {
 
 		// Call PAD_ScanPads each loop, this reads the latest controller states
 		PAD_ScanPads();

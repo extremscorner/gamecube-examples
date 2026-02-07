@@ -47,7 +47,7 @@ int main() {
 
 	printf("Memory Card Demo\n\n");
 
-	while (1) {
+	while (SYS_MainLoop()) {
 		printf("Insert A card in slot B and press A\n");
 
 		do {
