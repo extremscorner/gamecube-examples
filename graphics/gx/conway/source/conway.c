@@ -65,6 +65,9 @@ static void init_graphics(void)
 	fifo = memalign(32, GX_FIFO_MINSIZE);
 	GX_Init(fifo, GX_FIFO_MINSIZE);
 
+	GX_CopyDisp(xfb, GX_TRUE);
+	GX_DrawDone();
+
 	for (int i = GX_TEXCOORD0; i < GX_MAX_TEXCOORD; i++)
 		GX_SetTexCoordScaleManually(i, GX_TRUE, 1, 1);
 
@@ -81,20 +84,6 @@ static void init_graphics(void)
 		guMtxTrans(m, x, y, 0);
 		GX_LoadTexMtxImm(m, GX_DTTMTX1 + i * 3, GX_MTX3x4);
 	}
-
-	GX_SetCopyClear((GXColor){0, 0, 0, 0}, GX_MAX_Z24);
-	GX_SetCopyFilter(GX_FALSE, NULL, GX_FALSE, NULL);
-
-	GX_SetScissor(0, 0, rmode.fbWidth, rmode.efbHeight);
-	GX_SetScissorBoxOffset(0, 0);
-	GX_ClearBoundingBox();
-
-	GX_SetDispCopySrc(0, 0, rmode.fbWidth, rmode.efbHeight);
-	GX_SetDispCopyYScale(GX_GetYScaleFactor(rmode.efbHeight, rmode.xfbHeight));
-	GX_SetDispCopyDst(rmode.fbWidth, rmode.xfbHeight);
-
-	GX_CopyDisp(xfb, GX_TRUE);
-	GX_DrawDone();
 }
 
 static void init_conway(void)
@@ -155,11 +144,12 @@ static void init_conway(void)
 	GX_LoadTexObj(&texobj, GX_TEXMAP0);
 
 	GX_SetTexCopySrc(0, 0, rmode.fbWidth, rmode.efbHeight);
-	GX_SetTexCopyDst(rmode.fbWidth, rmode.efbHeight, GX_CTF_R4, GX_FALSE);
+	GX_SetTexCopyDst(rmode.fbWidth, rmode.efbHeight, GX_CTF_R4, GX_COPY_PROGRESSIVE);
 }
 
 static void draw_conway(void)
 {
+	GX_SetCopyFilter(GX_FALSE, NULL, GX_FALSE, NULL);
 	GX_CopyTex(texdata, GX_FALSE);
 	GX_InvalidateTexAll();
 
@@ -193,14 +183,18 @@ int main(int argc, char **argv)
 	while (SYS_MainLoop()) {
 		draw_conway();
 
+		if (rmode.copy_interlaced == GX_COPY_INTERLACED)
+			GX_SetDispCopyFrame2Field(GX_COPY_INTERLACED ^ VIDEO_GetNextField());
+
 		VIDEO_WaitVSync();
 		PAD_ScanPads();
 
+		GX_SetCopyFilter(GX_FALSE, NULL, GX_TRUE, rmode.vfilter);
 		GX_CopyDisp(xfb, GX_FALSE);
 		GX_DrawDone();
 
 		for (int chan = 0; chan < PAD_CHANMAX; chan++) {
-			u16 down = PAD_ButtonsDown(chan);
+			u32 down = PAD_ButtonsDown(chan);
 			if (down & PAD_BUTTON_A)
 				randomize();
 			if (down & PAD_BUTTON_START)

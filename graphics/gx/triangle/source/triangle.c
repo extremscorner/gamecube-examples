@@ -54,14 +54,15 @@ int	main(void)
 	GX_Init(fifoBuffer, FIFO_SIZE);
 	GX_SetCopyClear(backgroundColor, GX_MAX_Z24);
 	GX_SetViewport(0,0,screenMode->fbWidth,screenMode->efbHeight,0,1);
-	GX_SetDispCopyYScale((f32)screenMode->xfbHeight/(f32)screenMode->efbHeight);
 	GX_SetScissor(0,0,screenMode->fbWidth,screenMode->efbHeight);
+	GX_SetDispCopyFrame2Field(screenMode->copy_interlaced);
 	GX_SetDispCopySrc(0,0,screenMode->fbWidth,screenMode->efbHeight);
+	GX_SetDispCopyYScale(GX_GetYScaleFactor(screenMode->efbHeight,screenMode->xfbHeight));
 	GX_SetDispCopyDst(screenMode->fbWidth,screenMode->xfbHeight);
 	GX_SetCopyFilter(screenMode->aa,screenMode->sample_pattern,
 					 GX_TRUE,screenMode->vfilter);
 	GX_SetFieldMode(screenMode->field_rendering,
-					((screenMode->viHeight==2*screenMode->xfbHeight)?GX_ENABLE:GX_DISABLE));
+					((screenMode->viHeight/screenMode->efbHeight==2)?GX_ENABLE:GX_DISABLE));
 
 	GX_SetCullMode(GX_CULL_NONE);
 	GX_CopyDisp(frameBuffer,GX_TRUE);

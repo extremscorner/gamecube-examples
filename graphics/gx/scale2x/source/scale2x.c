@@ -102,6 +102,9 @@ static void init_graphics(void)
 	fifo = memalign(32, GX_FIFO_MINSIZE);
 	GX_Init(fifo, GX_FIFO_MINSIZE);
 
+	GX_CopyDisp(xfb, GX_TRUE);
+	GX_DrawDone();
+
 	for (int i = GX_TEXCOORD0; i < GX_MAX_TEXCOORD; i++)
 		GX_SetTexCoordScaleManually(i, GX_TRUE, 1, 1);
 
@@ -125,26 +128,12 @@ static void init_graphics(void)
 		guMtxTrans(m, x, y, 0);
 		GX_LoadTexMtxImm(m, GX_DTTMTX1 + i * 3, GX_MTX3x4);
 	}
-
-	GX_SetCopyClear((GXColor){0, 0, 0, 0}, GX_MAX_Z24);
-	GX_SetCopyFilter(GX_FALSE, NULL, GX_FALSE, NULL);
-
-	GX_SetScissor(0, 0, rmode.fbWidth, rmode.efbHeight);
-	GX_SetScissorBoxOffset(0, 0);
-	GX_ClearBoundingBox();
-
-	GX_SetDispCopySrc(0, 0, rmode.fbWidth, rmode.efbHeight);
-	GX_SetDispCopyYScale(GX_GetYScaleFactor(rmode.efbHeight, rmode.xfbHeight));
-	GX_SetDispCopyDst(rmode.fbWidth, rmode.xfbHeight);
-
-	GX_CopyDisp(xfb, GX_TRUE);
-	GX_DrawDone();
 }
 
 static void init_scale2x(void)
 {
 	Mtx44 projection;
-	guOrtho(projection, -rmode.efbHeight / 2, rmode.efbHeight / 2, -rmode.fbWidth / 2, rmode.fbWidth / 2, 0., 1.);
+	guOrtho(projection, -480./2., 480./2., -640./2., 640./2., 0., 1.);
 
 	TPL_OpenTPLFromMemory(&tdf, (void *)textures_tpl, textures_tpl_size);
 	TPL_GetTexture(&tdf, test, &texobj);
@@ -266,7 +255,13 @@ int main(int argc, char **argv)
 	init_scale2x();
 
 	while (SYS_MainLoop()) {
+		if (rmode.field_rendering)
+			GX_SetViewportJitter(0., 0., rmode.fbWidth, rmode.efbHeight, 0., 1., VIDEO_GetNextField());
+
 		draw_scale2x();
+
+		if (rmode.copy_interlaced == GX_COPY_INTERLACED)
+			GX_SetDispCopyFrame2Field(GX_COPY_INTERLACED ^ VIDEO_GetNextField());
 
 		VIDEO_WaitVSync();
 		PAD_ScanPads();
@@ -275,7 +270,7 @@ int main(int argc, char **argv)
 		GX_DrawDone();
 
 		for (int chan = 0; chan < PAD_CHANMAX; chan++) {
-			u16 down = PAD_ButtonsDown(chan);
+			u32 down = PAD_ButtonsDown(chan);
 			if (down & PAD_BUTTON_START)
 				exit(EXIT_SUCCESS);
 		}

@@ -68,13 +68,14 @@ int main(int argc,char **argv)
  
 	// other gx setup
 	GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);
+	GX_SetScissor(0,0,rmode->fbWidth,rmode->efbHeight);
+	GX_SetDispCopyFrame2Field(rmode->copy_interlaced);
+	GX_SetDispCopySrc(0,0,rmode->fbWidth,rmode->efbHeight);
 	yscale = GX_GetYScaleFactor(rmode->efbHeight,rmode->xfbHeight);
 	xfbHeight = GX_SetDispCopyYScale(yscale);
-	GX_SetScissor(0,0,rmode->fbWidth,rmode->efbHeight);
-	GX_SetDispCopySrc(0,0,rmode->fbWidth,rmode->efbHeight);
 	GX_SetDispCopyDst(rmode->fbWidth,xfbHeight);
 	GX_SetCopyFilter(rmode->aa,rmode->sample_pattern,GX_TRUE,rmode->vfilter);
-	GX_SetFieldMode(rmode->field_rendering,((rmode->viHeight==2*rmode->xfbHeight)?GX_ENABLE:GX_DISABLE));
+	GX_SetFieldMode(rmode->field_rendering,((rmode->viHeight/rmode->efbHeight==2)?GX_ENABLE:GX_DISABLE));
  
 	if (rmode->aa) {
 		GX_SetPixelFmt(GX_PF_RGB565_Z16, GX_ZC_LINEAR);
